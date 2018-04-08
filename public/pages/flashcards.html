@@ -1,0 +1,83 @@
+<div ng-controller="mainController">
+    <div class="row flascard-topic-section">
+        <div class="col-sm-9 card-topics" ng-repeat="topic in cardTopics">
+            <div class="card-topic" ng-click="getFlashcard(topic.id)">{{topic.topic}}</div>
+            </div>
+        <div class="col-sm-3 add-flashcard-bar">
+            <input 
+                id="input-subject" 
+                name="input-subject" 
+                type="text" 
+                class="form-control input-lg" 
+                placeholder="New subject..." 
+                ng-model="formData.subject" />  
+            <button 
+                id="newSubjectSubmit" 
+                type="submit"  
+                class="btn btn-primary btn-lg add-flashcard-topic" 
+                ng-click="createFlashcardSubject()">Create topic
+            </button>
+        </div>
+    </div>
+    <div class="flashcard hidden">
+        <div class="card-question">{{ card.question }}</div>
+        <div class="show-button">Show answer...</div>
+        <div class="card-answer hidden"> {{ card.answer }}</div>
+        <div class="row">
+            <div class="col-sm-6 answer">
+                <span class="incorrect" ng-click="answerCardIncorrect(card.id)">
+                    <i class="fas fa-stop-circle"></i>
+                </span>
+            </div>
+            <div class="col-sm-6 answer">
+                <span class="correct" ng-click="answerCardCorrect(card.id)">
+                    <i class="fas fa-check"></i>
+                </span>
+            </div>
+        <div class="meta-flashcard col-sm-3">
+            <div class="back-card">Back to topics</div>
+            <div class="add-card">Add card</div>
+        </div>
+    </div>
+    <div class="no-card hidden">
+        No cards in this topic.
+    </div>
+</div>
+<div class="add-flashcard hidden">
+    <textarea 
+        id="question"
+        name="question"
+        class="form-control input-lg input-flashcard"
+        placeholder="question..."
+        rows="3"
+        ng-model="formData.question">
+    </textarea>
+    <textarea 
+        id="answer"
+        name="answer"
+        class="form-control input-lg input-flashcard"
+        placeholder="answer..."
+        rows="3"
+        ng-model="formData.answer">
+    </textarea>
+    <button id="createSubmit" type="submit" class="btn btn-primary btn-lg" ng-click="createFlashcard(set)">Add</button>
+</div>
+
+<script>
+    $('.back-card').on('click', function() {
+        $('.flashcard').addClass('hidden');
+        $('.flascard-topic-section').removeClass('hidden');
+        $('.card-answer').addClass('hidden');
+        $('.show-button').removeClass('hidden');
+    });
+    $('.add-card').on('click', function() {
+        $('.flashcard').addClass('hidden');
+        $('.add-flashcard').removeClass('hidden');
+        $('.card-answer').addClass('hidden');
+        $('.show-button').removeClass('hidden');
+    });
+    $('.show-button').on('click', function() {
+        $('.card-answer').removeClass('hidden');
+        $('.show-button').addClass('hidden');
+    });
+</script>

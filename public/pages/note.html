@@ -1,0 +1,104 @@
+<div ng-controller="mainController">
+    <div class="col-md-9">
+        <div id="note-list" class="row">
+            <div class="note" ng-repeat="note in notes">
+                <div class="separator">
+                    //--------------------------------------------------------------------------------------------------------
+                </div>
+                <em class="note-title">note...</em>
+                <strong class="note-title">{{ note.title }}</strong>
+                <div class="note-body">{{ note.body }}</div>
+                <em class="keys-title">keywords...</em>
+                <div class="keys-text">{{ note.keywords }}</div>
+                <div class="delete row" data-id="{{ note.id }}">
+                    <div class="col-sm-6"><button type="submit" class="btn btn-primary btn-sm" ng-click="getEditNote(note.id)">Edit</button></div>
+                    <div class="col-sm-6"><button type="submit" class="btn btn-primary btn-sm" ng-click="deleteNote(note.id)">Delete</button></div>
+                </div>
+            </div>
+        </div>            
+        <div id="note-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <input type="text" style="display: none;" id="input-id" name="input-id" value="" ng-model="formData.id" />
+                    <div class="form-group">
+                        <input 
+                            id="input-title" 
+                            name="input-title" 
+                            type="text" 
+                            class="form-control input-lg input-title" 
+                            placeholder="title..." 
+                            ng-model="formData.title" />
+                        <textarea 
+                            id="input-note"
+                            name="input-note"
+                            class="form-control input-lg input-note"
+                            placeholder="notes..."
+                            rows="6"
+                            ng-model="formData.body">
+                        </textarea>
+                        <input 
+                            id="input-keywords" 
+                            name="input-keywords" 
+                            type="text" 
+                            class="form-control input-lg" 
+                            placeholder="keywords..." 
+                            ng-model="formData.keywords" />
+                    </div>
+                    <button id="editSubmit" type="submit" class="btn btn-primary btn-lg hidden" ng-click="editNote()">Update</button>
+                    <button id="createSubmit" type="submit" class="btn btn-primary btn-lg" ng-click="createNote()">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="keyword-section col-md-3">
+        <div class="search-section">
+            <div id="search-bar">
+                <input type="text" placeholder="Search through notes..." ng-model="sText" ng-change="search()" />
+            </div>
+            <div class="search-results" ng-repeat="result in searchResults"></div>
+        </div>
+        <div class="keyword-section">
+            <div class="keywords-title">
+                Top 10 keywords:
+            </div>
+            <div class="top-keyword-items" ng-repeat="keyword in keywords">
+                <a class="keyword-item" ng-click="searchKeyword(keyword.key)">{{ keyword.key }} ({{ keyword.value }})</a>
+            </div>
+            <div class="keyword-reset">
+                <a class="btn btn-primary btn-sm" ng-show="isSearchKeyword" ng-click="clearKeywords()">Clear Keywords</a>
+            </div>
+        </div>
+        <div class="todo-section">
+            <div class="todo-header">Tasks...</div>
+            <div id="todo-list" class="list-group">
+                <div class="list-group-item row" ng-repeat="todo in todos">
+                    <div class="todo-body col-sm-9">{{ todo.body }}</div>
+                    <div class="todo-delete col-sm-1" ng-click="deleteTodo(todo.id)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="todo-create">
+                <div>
+                    <input 
+                        type="text" 
+                        class="list-group-item list-create" 
+                        name="todo-create-text" 
+                        ng-model="formData.todo"
+                        id="todo-create-text" />
+                </div>
+                <div>
+                    <button id="createTodo" type="submit" class="btn btn-primary btn-sm" ng-click="createTodo()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function() {       
+    var sorts = document.getElementById('todo-list');
+    if (sorts !== undefined) {
+        var sortables = Sortable.create(sorts);
+    }
+    }, 1000);
+</script>

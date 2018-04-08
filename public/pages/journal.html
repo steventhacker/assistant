@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-9">
+        <div class="journal" ng-repeat="journal in journals">
+            <div class="journal-timestamp">{{journal.key}}</div>
+            <div class="journal-entries">
+                <div class="journal-entry" ng-repeat="entry in journal.values">
+                    <i class="fas fa-caret-right"></i>
+                    {{entry}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 add-journal-col">
+        <div class="new-journal btn btn-primary">Add New Entry</div>
+        <div class="journal-todos">
+            <div class="todo-header">Outstanding tasks...</div>
+            <div id="todo-list" class="list-group">
+                <div class="list-group-item" ng-repeat="todo in todos">
+                    {{ todo.body }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new-journal-section col-sm-9 hidden">
+        <div class="form-group">
+            <textarea 
+                id="input-note"
+                name="input-note"
+                class="form-control input-lg input-note"
+                placeholder="new journal..."
+                rows="6"
+                ng-model="formData.journal">
+            </textarea>
+        </div>
+        <button id="journalSubmit" type="submit" class="btn btn-primary btn-lg" ng-click="createJournalEntry()">Add</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.new-journal').on('click', function() { 
+            $('.new-journal-section').removeClass('hidden');
+        });
+        $('#journalSubmit').on('click', function() {
+            $('.new-journal-section').addClass('hidden');
+        })
+    });
+</script>

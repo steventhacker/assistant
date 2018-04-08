@@ -1,0 +1,39 @@
+<div ng-controller="mainController">
+    <div class="row active-checklists">
+        <div class="active-checklist-title">Active checklists...</div>
+        <div class="checklists">
+            <div class="checklist" ng-repeat="list in lists">
+                <div class="checklist-title">{{ list.title }}</div>
+                <div class="row checklist-item">
+                    <div class="col-sm-6">Configuration</div>
+                    <div class="col-sm-3 void" ng-click="updateItem('configVoid', list.id)">X</div>
+                    <div class="col-sm-3 check" ng-click="updateItem('configDone', list.id)">✔</div>
+                </div>
+                <div class="row checklist-item">
+                    <div class="col-sm-6">Code</div>
+                    <div class="col-sm-3 void" ng-click="updateItem('codeVoid', list.id)">X</div>
+                    <div class="col-sm-3 check" ng-click="updateItem('codeDone', list.id)">✔</div>
+                </div>
+                <div class="row checklist-item">
+                    <div class="col-sm-6">Style guide</div>
+                    <div class="col-sm-3 void" ng-click="updateItem('styleVoid', list.id)">X</div>
+                    <div class="col-sm-3 check" ng-click="updateItem('styleDone', list.id)">✔</div>
+                </div>
+                <div class="row checklist-item">
+                    <div class="col-sm-6">Unit tests</div>
+                    <div class="col-sm-3 void" ng-click="updateItem('testsVoid', list.id)">X</div
+                    ><div class="col-sm-3 check" ng-click="updateItem('testsDone', list.id)">✔</div>
+                </div>
+                <div class="row checklist-item">
+                    <div class="col-sm-6">Documentation</div>
+                    <div class="col-sm-3 void" ng-click="updateItem('docsVoid', list.id)">X</div>
+                    <div class="col-sm-3 check" ng-click="updateItem('docsDone', list.id)">✔</div>
+                </div>
+            </div>
+        </div>
+        <div class="new-checklist-section">
+            <input type="text" id="new-checklist-name" name="new-checklist-name" ng-model="formData.title" /> <br />
+            <div class="add-checklist btn btn-primary" ng-click="createList()">Add checklist</div>
+        </div>
+    </div>
+</div>
