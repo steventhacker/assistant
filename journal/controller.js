@@ -36,7 +36,9 @@ function buildEntries(e) {
     e.forEach(journal => {
         var timestamp = journal.dataValues.timestamp;
         var d = new Date(timestamp * 1000);
-        var month = d.getMonth();
+
+        // JS dates are 0 indexed, sigh
+        var month = d.getMonth() + 1;
         var day = d.getDate();
         var year = d.getFullYear();
         var date = month + '/' + day + '/' + year;
