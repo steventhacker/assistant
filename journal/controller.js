@@ -23,9 +23,11 @@ journalRouter.post('/', function(req, res) {
       entry: req.body.journal,
       timestamp: parseInt((date.getTime() / 1000).toFixed(0))
     }).then(function() {
-      Journal.findAll().then(journals => {
-        var entries = buildEntries(journals);
-        res.json(entries);
+      Journal.findAll({
+            order: [['timestamp', 'DESC']]
+        }).then(journals => {
+            var entries = buildEntries(journals);
+            res.json(entries);
       })
     });
   });
