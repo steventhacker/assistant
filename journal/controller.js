@@ -18,7 +18,7 @@ journalRouter.get('/', function (req, res) {
 journalRouter.post('/', function(req, res) {
   Journal.sync({force: false}).then(() => {
       var date = new Date();
-      date.setDate(date.getDate() - 1);
+      date.setDate(date.getDate());
     return Journal.create({
       entry: req.body.journal,
       timestamp: parseInt((date.getTime() / 1000).toFixed(0))
