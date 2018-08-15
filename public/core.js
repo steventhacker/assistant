@@ -138,11 +138,12 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             answer: $scope.formData.answer
         }
 
-        console.log(payload);
-
         $http.post('/api/flashcard/card', payload)
             .success(function(response) {
-                console.log(response);
+                $scope.set = response;
+                $('.flashcard').removeClass('hidden');
+                $('.add-flashcard').addClass('hidden');
+                $('.no-card').addClass('hidden');
             })
             .error(function(error) {
                 console.log('Error creating flashcard: ' + error);

@@ -103,6 +103,7 @@ strong {
 
 .card-topic {
     cursor: pointer;
+    margin: 10px;
 }
 
 .no-card {

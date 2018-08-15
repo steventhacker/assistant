@@ -1,8 +1,13 @@
 <div ng-controller="mainController">
     <div class="row flascard-topic-section">
-        <div class="col-sm-9 card-topics" ng-repeat="topic in cardTopics">
-            <div class="card-topic" ng-click="getFlashcard(topic.id)">{{topic.topic}}</div>
+        <div class="col-sm-9 card-topics">
+            <div ng-repeat="topic in cardTopics">
+                <div class="card-topic" ng-click="getFlashcard(topic.id)">
+                    <i class="fas fa-caret-right"></i>
+                    {{topic.topic}}
+                </div>
             </div>
+        </div>
         <div class="col-sm-3 add-flashcard-bar">
             <input 
                 id="input-subject" 
