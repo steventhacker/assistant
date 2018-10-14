@@ -55,7 +55,7 @@
         class="form-control input-lg input-flashcard"
         placeholder="question..."
         rows="3"
-        ng-model="formData.question">
+        ng-model="formData.newQuestion">
     </textarea>
     <textarea 
         id="answer"
@@ -63,7 +63,7 @@
         class="form-control input-lg input-flashcard"
         placeholder="answer..."
         rows="3"
-        ng-model="formData.answer">
+        ng-model="formData.newAnswer">
     </textarea>
     <button id="createSubmit" type="submit" class="btn btn-primary btn-lg" ng-click="createFlashcard(set)">Add</button>
 </div>
