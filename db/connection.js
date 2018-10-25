@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const databaseUser = process.env.DB_USER || 'assistant';
-const databaseHost = process.env.DB_HOST || 'host';
+const databaseHost = process.env.DB_HOST || 'localhost';
 const databasePass = process.env.DB_PASS || 'pass';
 const databaseName = 'assistant';
 const databaseType = 'mysql';
