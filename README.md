@@ -44,7 +44,7 @@ Simple journal for keeping a log of work done, retrieved from database on a per-
 
 ## Flashcards
 
-Simple flashcard system that has topics and cards under each topic. You can guess your answer and then log if you were correct or not. Eventually will add a system to select only cards with a low amount of correct answers.
+Simple flashcard system that has topics and cards under each topic. You can guess your answer and then log if you were correct or not. Also gives the user the option of viewing only cards that they have a low score on, allowing them to focus on what areas they need the most improvement in.
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
