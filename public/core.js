@@ -116,6 +116,28 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             })
     }
 
+    $scope.getLowCard = function(set) {
+        $http.get('/api/flashcard/low/' + set)
+            .success(function(response) {
+                if (response === 'No cards') {
+                    $scope.set = set;
+                    $('.no-card').removeClass('hidden');
+                    $('.add-flashcard').removeClass('hidden');
+                    $('.flashcard').addClass('hidden');
+                } else {
+                    $scope.set = set;
+                    $scope.card = response;
+                    $('.no-card').addClass('hidden');
+                    $('.add-flashcard').addClass('hidden');
+                    $('.flashcard').removeClass('hidden');
+                    $('.flascard-topic-section').addClass('hidden');
+                }
+            })
+            .error(function(error) {
+                console.log('Error getting flashcard: ' + error);
+            })
+    }
+
     $scope.cardAnswer = function(set, id, answeredCorrect) {
         var payload = {
             set: set,
@@ -210,6 +232,7 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
     };
 
     $scope.answerCardIncorrect = function(id) {
+        console.log('Incorrecting ' + id);
         $http.post('/api/flashcard/incorrect/' + id)
             .success(function(response) {
                 $scope.card = response;

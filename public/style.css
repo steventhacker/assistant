@@ -106,6 +106,10 @@ strong {
     margin: 10px;
 }
 
+.card-topic-low {
+    margin-left: 30px;
+}
+
 .no-card {
     padding: 30px 0;
     text-align: center;

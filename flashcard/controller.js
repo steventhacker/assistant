@@ -5,8 +5,8 @@ var Sequelize = require('sequelize');
 var sequelize = require('../db/connection');
 var Flashcard = require('./model/flashcard');
 var FlashcardTopic = require('./model/flashcardTopic');
+var Op = Sequelize.Op;
 
-// Get the todos
 flashcardController.get('/', function (req, res) {
   FlashcardTopic.findAll().then(topics => {
     res.json(topics);
@@ -28,8 +28,35 @@ flashcardController.get('/:topic', function(req, res) {
         res.json(card);
       }
   })
-
 });
+
+flashcardController.get('/low/:topic', function(req, res) {
+  var topic = req.params.topic;
+
+  Flashcard.findAll({    
+    where: {
+      [Op.and]: 
+      [
+        {
+        topicId: topic
+        },
+        {
+          correct: {
+            [Op.lt]: sequelize.col('incorrect')
+          }
+        }
+      ]
+    }
+  }).then(function(cards) {
+      if (cards === undefined || cards.length < 1) {
+          console.log('Could not get card');
+          res.send('No cards');
+      } else {
+        var card = cards[Math.floor(Math.random()*cards.length)];
+        res.json(card);
+      }
+  })
+})
 
 flashcardController.post('/', function(req, res) {
   FlashcardTopic.sync({force: false}).then(() => {
@@ -48,7 +75,7 @@ flashcardController.post('/card/', function(req, res) {
   var topicId = payload.set;
   var question = payload.question;
   var answer = payload.answer;
-
+  
   Flashcard.sync({force: false}).then(() => {
     return Flashcard.create({
       question: question,
@@ -83,7 +110,7 @@ flashcardController.post('/correct/:id', function(req, res) {
 flashcardController.post('/incorrect/:id', function(req, res) {
   var topicId = req.params.id;
   Flashcard.update({
-    total: Sequelize.literal('total + 1')
+    incorrect: Sequelize.literal('incorrect + 1')
   }, {
     where: {
         id: topicId

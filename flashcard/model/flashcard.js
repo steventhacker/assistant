@@ -13,7 +13,7 @@ const Flashcard = sequelize.define('flashcard', {
     answer: {
       type: Sequelize.STRING(800)
     },
-    total: {
+    incorrect: {
       type: Sequelize.INTEGER,
       defaultValue: 0
     },
