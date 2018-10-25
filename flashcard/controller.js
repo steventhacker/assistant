@@ -16,19 +16,43 @@ flashcardController.get('/', function (req, res) {
 flashcardController.get('/:topic', function(req, res) {
   var topic = req.params.topic;
 
+  getCardWithTopic(topic, res);
+});
+
+function getCard(res) {
+  Flashcard.findAll({
+    where: {
+      topicId: topic
+    }
+  }).then(function(cards) {
+      getRandom(cards, res);
+  })
+}
+
+function getCardWithTopic(topic, res) {
   Flashcard.findAll({
       where: {
+      [Op.and]:
+      [ {
           topicId: topic
+        }, {
+          archived: 0
       }
+      ]
+    }
   }).then(function(cards) {
+      getRandom(cards, res);
+  })
+}
+
+function getRandom(cards, res) {
       if (cards === undefined || cards.length < 1) {
           res.send('No cards');
       } else {
         var card = cards[Math.floor(Math.random()*cards.length)];
         res.json(card);
       }
-  })
-});
+}
 
 flashcardController.get('/low/:topic', function(req, res) {
   var topic = req.params.topic;
@@ -36,25 +60,19 @@ flashcardController.get('/low/:topic', function(req, res) {
   Flashcard.findAll({    
     where: {
       [Op.and]: 
-      [
-        {
+      [ {
         topicId: topic
-        },
-        {
+        }, {
           correct: {
             [Op.lt]: sequelize.col('incorrect')
           }
+        }, {
+          archived: 0
         }
       ]
     }
   }).then(function(cards) {
-      if (cards === undefined || cards.length < 1) {
-          console.log('Could not get card');
-          res.send('No cards');
-      } else {
-        var card = cards[Math.floor(Math.random()*cards.length)];
-        res.json(card);
-      }
+    getRandom(cards, res);
   })
 })
 
@@ -82,10 +100,7 @@ flashcardController.post('/card/', function(req, res) {
       answer: answer,
       topicId: topicId
     }).then(function() {
-      Flashcard.findAll().then(cards => {
-        var card = cards[Math.floor(Math.random()*cards.length)];
-        res.json(card);
-      })
+      getCard(res);
     });
   });
 });
@@ -99,11 +114,7 @@ flashcardController.post('/correct/:id', function(req, res) {
     where: {
         id: topicId
   }}).then(function() {
-    Flashcard.findAll().then(function(cards) {
-        var card = cards[Math.floor(Math.random()*cards.length)];
-        console.log('Card: ' + JSON.stringify(card));
-        res.json(card);
-    })
+    getCard(res);
   })
 });
 
@@ -115,11 +126,19 @@ flashcardController.post('/incorrect/:id', function(req, res) {
     where: {
         id: topicId
   }}).then(function() {
-    Flashcard.findAll().then(function(cards) {
-        var card = cards[Math.floor(Math.random()*cards.length)];
-        console.log('Card: ' + JSON.stringify(card));
-        res.json(card);
-    })
+    getCard(res);
+  })
+});
+
+flashcardController.post('/delete/:id', function(req, res) {
+  var cardId = req.params.id;
+  Flashcard.update({
+    archived: 1
+  }, {
+    where: {
+        id: cardId
+  }}).then(function() {
+    getCard(res);
   })
 });
 

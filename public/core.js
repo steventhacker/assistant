@@ -174,6 +174,21 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             })
     }
 
+    $scope.deleteFlashcard = function(cardId) {
+        $http.post('/api/flashcard/delete/' + cardId)
+            .success(function(response) {
+                $scope.card = response;
+                $('.flashcard').removeClass('hidden');
+                $('.add-flashcard').addClass('hidden');
+                $('.no-card').addClass('hidden');
+                $('#question').val('');
+                $('#answer').val('');
+            })
+            .error(function(error) {
+                console.log('Error deleting flashcard: ' + error);
+            })            
+    }
+
     $scope.createList = function() {
         $http.post('/api/lists', $scope.formData)
             .success(function(lists) {

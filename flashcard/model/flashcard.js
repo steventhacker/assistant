@@ -23,6 +23,10 @@ const Flashcard = sequelize.define('flashcard', {
     },
     topicId: {
       type: Sequelize.INTEGER
+    },
+    archived: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 0
     }
   }, {
     createdAt: false,

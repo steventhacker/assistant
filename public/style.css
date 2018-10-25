@@ -153,7 +153,7 @@ strong {
     margin-right: auto;
 }
 
-.back-card, .add-card {
+.back-card, .add-card, .del-card {
     cursor: pointer;
 }
 

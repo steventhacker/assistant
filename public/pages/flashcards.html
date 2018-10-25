@@ -6,11 +6,11 @@
                     <i class="fas fa-caret-right"></i>
                     {{topic.topic}}
                 </div>
-                <div class="card-topic card-topic-low" ng-click="getLowCard(topic.id)">
-                    Low cards
+                    <div class="card-topic card-topic-low" ng-click="getLowCard(topic.id)">
+                        Low cards
+                    </div>
                 </div>
             </div>
-        </div>
         <div class="col-sm-3 add-flashcard-bar">
             <input 
                 id="input-subject" 
@@ -45,6 +45,7 @@
         <div class="meta-flashcard col-sm-3">
             <div class="back-card">Back to topics</div>
             <div class="add-card">Add card</div>
+            <div class="del-card" ng-click="deleteFlashcard(card.id)">Delete card</div>
         </div>
     </div>
     <div class="no-card hidden">
