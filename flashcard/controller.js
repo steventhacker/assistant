@@ -19,7 +19,7 @@ flashcardController.get('/:topic', function(req, res) {
   getCardWithTopic(topic, res);
 });
 
-function getCard(res) {
+function getCard(res, topic) {
   Flashcard.findAll({
     where: {
       topicId: topic
@@ -100,45 +100,48 @@ flashcardController.post('/card/', function(req, res) {
       answer: answer,
       topicId: topicId
     }).then(function() {
-      getCard(res);
+      getCard(res, topicId);
     });
   });
 });
 
-flashcardController.post('/correct/:id', function(req, res) {  
-  var topicId = req.params.id;
+flashcardController.post('/correct/:id/:topic', function(req, res) {  
+  var id = req.params.id;
+  var topic = req.params.topic;
   Flashcard.update({
     correct: Sequelize.literal('correct + 1'),
     total: Sequelize.literal('total + 1')
   }, {
     where: {
-        id: topicId
+        id: id
   }}).then(function() {
-    getCard(res);
+    getCard(res, topic);
   })
 });
 
-flashcardController.post('/incorrect/:id', function(req, res) {
-  var topicId = req.params.id;
+flashcardController.post('/incorrect/:id/:topic', function(req, res) {
+  var id = req.params.id;
+  var topic = req.params.topic;
   Flashcard.update({
     incorrect: Sequelize.literal('incorrect + 1')
   }, {
     where: {
-        id: topicId
+        id: id
   }}).then(function() {
-    getCard(res);
+    getCard(res, topic);
   })
 });
 
-flashcardController.post('/delete/:id', function(req, res) {
-  var cardId = req.params.id;
+flashcardController.post('/delete/:id/:topic', function(req, res) {
+  var id = req.params.id;
+  var topic = req.params.topic;
   Flashcard.update({
     archived: 1
   }, {
     where: {
-        id: cardId
+        id: id
   }}).then(function() {
-    getCard(res);
+    getCard(res, topic);
   })
 });
 

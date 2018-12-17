@@ -246,9 +246,8 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             });
     };
 
-    $scope.answerCardIncorrect = function(id) {
-        console.log('Incorrecting ' + id);
-        $http.post('/api/flashcard/incorrect/' + id)
+    $scope.answerCardIncorrect = function(id, topic) {
+        $http.post('/api/flashcard/incorrect/' + id + '/' + topic)
             .success(function(response) {
                 $scope.card = response;
                 $('.card-answer').addClass('hidden');
@@ -259,8 +258,8 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             });
     }
 
-    $scope.answerCardCorrect = function(id) {
-        $http.post('/api/flashcard/correct/' + id)
+    $scope.answerCardCorrect = function(id, topic) {
+        $http.post('/api/flashcard/correct/' + id + '/' + topic)
             .success(function(response) {
                 $scope.card = response;
                 $('.card-answer').addClass('hidden');

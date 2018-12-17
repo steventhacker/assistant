@@ -33,12 +33,12 @@
         <div class="card-answer hidden"> {{ card.answer }}</div>
         <div class="row">
             <div class="col-sm-6 answer">
-                <span class="incorrect" ng-click="answerCardIncorrect(card.id)">
+                <span class="incorrect" ng-click="answerCardIncorrect(card.id, card.topicId)">
                     <i class="fas fa-stop-circle"></i>
                 </span>
             </div>
             <div class="col-sm-6 answer">
-                <span class="correct" ng-click="answerCardCorrect(card.id)">
+                <span class="correct" ng-click="answerCardCorrect(card.id, card.topicId)">
                     <i class="fas fa-check"></i>
                 </span>
             </div>
