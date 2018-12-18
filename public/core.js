@@ -174,8 +174,8 @@ notesApp.controller('mainController', function ($scope, $http, $timeout) {
             })
     }
 
-    $scope.deleteFlashcard = function(cardId) {
-        $http.post('/api/flashcard/delete/' + cardId)
+    $scope.deleteFlashcard = function(cardId, topic) {
+        $http.post('/api/flashcard/delete/' + cardId + '/' + topic)
             .success(function(response) {
                 $scope.card = response;
                 $('.flashcard').removeClass('hidden');
